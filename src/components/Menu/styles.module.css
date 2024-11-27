@@ -1,0 +1,31 @@
+.menu {
+  display: flex;
+}
+
+.menu_item {
+  padding: 1rem 3rem;
+}
+
+.menu_item a {
+  text-decoration: none; 
+  color: var(--white);
+  padding: 0.755rem 4rem;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+
+  transition: border-bottom 0.2s
+}
+
+.menu_item a:hover {
+  border-bottom: 5px solid var(--white);
+}
+
+.menu_item a[data-current="true"] {
+  border-bottom: 5px solid var(--white);
+}
+
+@media(max-width: 768px) {
+  .menu {
+    display: none;
+  }
+}

@@ -1,0 +1,6 @@
+.header {
+  background-color: var(--branding-500);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
