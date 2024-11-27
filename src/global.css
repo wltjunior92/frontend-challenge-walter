@@ -1,0 +1,33 @@
+:root {
+  --white: #fff;
+  
+  --branding-500: #4f372f;
+  --branding-700: #36231c;
+  
+  --background: #eee;
+  --card: #f8f9fa;
+
+  --placeholder: #1f2329;
+
+  --gray-icon: #8a94a4;
+  --text-light: #464646;
+  --text-dark: #121212;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--background);
+  color: var(--text-dark);
+  -webkit-font-smoothing: antialiased;
+}
+
+body, input, textarea {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+}
