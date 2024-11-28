@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: transparent;
+  border: 0;
+  padding: 0 0.68rem;
+  height: 100%;
+  cursor: pointer;
+}
+
+.image_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  
+  overflow: hidden;
+
+  border: 2px solid transparent;
+  outline: 2px solid transparent;
+  
+  height: 82px;
+  width: 82px;
+}
+
+.image_container img {
+  object-fit: cover;  
+  height: 82px; 
+  width: 82px;
+}
+
+.container span {
+  padding: 1rem 1.75rem;
+  line-height: 18.75px;
+  font-size: 1.25rem;
+  border-bottom: 3px solid transparent;
+}
+
+span.selected {
+  border-bottom: 3px solid var(--branding-500);
+}
+
+.image_container.selected {
+  border: 2px solid var(--white);
+  outline: 2px solid var(--branding-500);
+}

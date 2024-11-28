@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  padding: 1rem;
+  align-items: center;
+  justify-content: space-between;
+
+  & img {
+    height: 5.3rem;
+    border-radius: 4px;
+  }
+}
+
+.content p {
+  color: var(--text-light);
+  max-width: 23.5rem;
+  font-weight: 300;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 0.25rem 0;
+}
+
+@media(max-width: 768px) {
+  .content p {
+    color: var(--text-light);
+    max-width: 15rem;
+    font-weight: 300;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0.25rem 0;
+  }
+}
+
+@media(max-width: 320px) {
+  .content p {
+    color: var(--text-light);
+    max-width: 10rem;
+    font-weight: 300;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0.25rem 0;
+  }
+}

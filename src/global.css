@@ -31,3 +31,9 @@ body, input, textarea {
   font-weight: 400;
   font-size: 1rem;
 }
+
+@media(max-width: 768px) {
+  body {
+    background-color: var(--card);
+  }
+}
