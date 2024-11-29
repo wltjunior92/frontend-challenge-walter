@@ -1,5 +1,8 @@
+import { useState } from 'react'
+
 import searchIcon from '../../assets/searchIcon.svg'
 import { Chart } from '../../components/Chart'
+import { DetailsModal } from '../../components/DetailsModal'
 import { SectionNavigator } from '../../components/SectionNavigator'
 import {
   SectionAccordion,
@@ -7,6 +10,12 @@ import {
 import styles from './styles.module.css'
 
 export function Home() {
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(true)
+
+  const toggleOpenCloseDetailsModal = () => {
+    setIsDetailsModalOpen(open => !open)
+  }
+
   return (
     <div>
       <div className={styles.banner}>
@@ -33,6 +42,8 @@ export function Home() {
           </div>
         </div>
       </div>
+      {isDetailsModalOpen &&
+        <DetailsModal onClose={toggleOpenCloseDetailsModal} />}
     </div>
   )
 }
