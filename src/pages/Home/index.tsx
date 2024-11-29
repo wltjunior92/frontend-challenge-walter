@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import searchIcon from '../../assets/searchIcon.svg'
 import { Chart } from '../../components/Chart'
+import { ChartModal } from '../../components/ChartModal'
 import { DetailsModal } from '../../components/DetailsModal'
 import { SectionNavigator } from '../../components/SectionNavigator'
 import {
@@ -10,11 +11,24 @@ import {
 import styles from './styles.module.css'
 
 export function Home() {
-  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(true)
+  const chartQty = 1
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false)
+  const [isChartModalOpen, setIsChartModalOpen] = useState(true)
 
   const toggleOpenCloseDetailsModal = () => {
     setIsDetailsModalOpen(open => !open)
   }
+  const toggleOpenCloseChartModal = () => {
+    setIsChartModalOpen(open => !open)
+  }
+
+  useEffect(() => {
+    if (isDetailsModalOpen) {
+      document.body.style.overflowY = 'hidden'
+    } else {
+      document.body.style.overflowY = 'auto'
+    }
+  }, [isDetailsModalOpen])
 
   return (
     <div>
@@ -32,9 +46,9 @@ export function Home() {
           <main>
             <SectionNavigator />
             <section>
-              <SectionAccordion />
-              <SectionAccordion />
-              <SectionAccordion />
+              <SectionAccordion onSelectItem={toggleOpenCloseDetailsModal} />
+              <SectionAccordion onSelectItem={toggleOpenCloseDetailsModal} />
+              <SectionAccordion onSelectItem={toggleOpenCloseDetailsModal} />
             </section>
           </main>
           <div className={styles.chart_content}>
@@ -42,8 +56,24 @@ export function Home() {
           </div>
         </div>
       </div>
-      {isDetailsModalOpen &&
-        <DetailsModal onClose={toggleOpenCloseDetailsModal} />}
+      {
+        isDetailsModalOpen &&
+          <DetailsModal onClose={toggleOpenCloseDetailsModal} />
+      }
+      {
+        isChartModalOpen &&
+          <ChartModal onClose={toggleOpenCloseChartModal} />
+      }
+      {
+        chartQty > 0 &&
+          <div className={styles.chart_button_container}>
+            <button type="button" onClick={toggleOpenCloseChartModal}>
+              Your basket
+              <strong>.</strong>
+              1 item
+            </button>
+          </div>
+      }
     </div>
   )
 }

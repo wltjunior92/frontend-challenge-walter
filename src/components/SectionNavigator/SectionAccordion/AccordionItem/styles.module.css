@@ -1,12 +1,23 @@
 .container {
   display: flex;
+  width: 100%;
   padding: 1rem;
   align-items: center;
   justify-content: space-between;
+  text-align: left;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+
+  transition: filter 0.2s;
 
   & img {
     height: 5.3rem;
     border-radius: 4px;
+  }
+
+  &:hover {
+    filter: brightness(0.8);
   }
 }
 
@@ -20,26 +31,25 @@
   margin: 0.25rem 0;
 }
 
+.content span {
+  font-weight: 600;
+  color: var(--text-light);
+}
+
 @media(max-width: 768px) {
   .content p {
-    color: var(--text-light);
     max-width: 15rem;
-    font-weight: 300;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin: 0.25rem 0;
+  }
+}
+
+@media(max-width: 375px) {
+  .content p {
+    max-width: 13rem;
   }
 }
 
 @media(max-width: 320px) {
   .content p {
-    color: var(--text-light);
     max-width: 10rem;
-    font-weight: 300;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin: 0.25rem 0;
   }
 }

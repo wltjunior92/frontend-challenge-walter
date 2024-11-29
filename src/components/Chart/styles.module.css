@@ -7,11 +7,12 @@
     font-weight: 500;
   }
 
-  & .content {
-    padding: 1rem;
-    margin-top: 0.5rem;
-    background-color: var(--white);
-  }
+}
+
+.content {
+  padding: 1rem;
+  margin-top: 0.5rem;
+  background-color: var(--white);
 }
 
 .chart_item {
@@ -77,5 +78,55 @@
   
   & strong {
     font-weight: 500;
+  }
+}
+
+.checkout_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+
+  & > button {
+    border: 0;
+    padding: 0.85rem;
+    border-radius: 40px;
+    color: var(--white);
+    background-color: var(--branding-500);
+    font-size: 1.125rem;
+    width: 100%;
+  }
+}
+
+@media(max-width: 768px) {
+  .container {
+    width: 100vw;
+    height: 100vh;
+
+    & > h3 {
+      width: 100%;
+      text-align: center;
+      color: var(--text);
+    }
+  }
+
+  .checkout_button {
+    margin-top: auto;
+  }
+
+  .content {
+    padding: 1rem;
+    margin-top: 0.5rem;
+    background-color: var(--white);
+    max-height: 67vh;
+    overflow-y: auto;
+  }
+
+  .checkout_button {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding-bottom: 2rem;
   }
 }

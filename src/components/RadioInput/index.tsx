@@ -7,7 +7,7 @@ type RadioInputProps = InputHTMLAttributes<HTMLInputElement>
 export function RadioInput({ ...rest }: RadioInputProps) {
   return (
     <label className={styles.radio_container}>
-      <input {...rest} onChange={() => console.log('Mudou')} />
+      <input {...rest} />
       <span className={styles.custom_radio} />
     </label>
   )

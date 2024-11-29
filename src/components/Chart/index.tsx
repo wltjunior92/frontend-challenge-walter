@@ -52,6 +52,11 @@ export function Chart() {
         <span>Total:</span>
         <strong>48.00</strong>
       </footer>
+      <div className={styles.checkout_button}>
+        <button type="button">
+          Checkout now
+        </button>
+      </div>
     </div>
   )
 }

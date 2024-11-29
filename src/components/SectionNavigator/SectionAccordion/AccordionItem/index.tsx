@@ -1,8 +1,12 @@
 import styles from './styles.module.css'
 
-export function AccordionItem() {
+type AccordionItemProps = {
+  onSelect: () => void
+}
+
+export function AccordionItem({ onSelect }: AccordionItemProps) {
   return (
-    <div className={styles.container}>
+    <button type="button" className={styles.container} onClick={onSelect}>
       <div className={styles.content}>
         <strong>Hardcore</strong>
         <p>
@@ -21,6 +25,6 @@ export function AccordionItem() {
         </span>
       </div>
       <img src="https://preodemo.gumlet.io/usr/venue/7602/menuItem/646fbdc8cecca.png" />
-    </div>
+    </button>
   )
 }

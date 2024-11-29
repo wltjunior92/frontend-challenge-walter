@@ -4,7 +4,11 @@ import chevronUp from '../../../assets/chevronUp.svg'
 import { AccordionItem } from './AccordionItem'
 import styles from './styles.module.css'
 
-export function SectionAccordion() {
+type SectionAccordionProps = {
+  onSelectItem: () => void
+}
+
+export function SectionAccordion({ onSelectItem }: SectionAccordionProps) {
   const [isOpen, setIsOpen] = useState(true)
 
   const toggleOpenCloseAccordion = () => {
@@ -31,9 +35,9 @@ export function SectionAccordion() {
       </div>
       {isOpen &&
         <div className={styles.accordion_content}>
-          <AccordionItem />
-          <AccordionItem />
-          <AccordionItem />
+          <AccordionItem onSelect={onSelectItem} />
+          <AccordionItem onSelect={onSelectItem} />
+          <AccordionItem onSelect={onSelectItem} />
         </div>}
     </div>
   )
