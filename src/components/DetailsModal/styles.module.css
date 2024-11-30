@@ -167,8 +167,14 @@
       transform: translateY(-4px);
     }
 
-    &:hover {
+    &:hover:not(:disabled) {
       filter: brightness(0.8);
+    }
+
+    &:disabled {
+      background-color: #DADADA;
+      cursor: auto;
+      color: var(--text-light);
     }
   }
 }

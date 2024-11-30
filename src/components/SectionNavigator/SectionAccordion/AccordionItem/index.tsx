@@ -1,4 +1,5 @@
 import { useAppSelector } from '../../../../hooks/useAppSelector'
+import { formatCurrency } from '../../../../utils/formatCurrency'
 import styles from './styles.module.css'
 
 type AccordionItemProps = {
@@ -26,10 +27,8 @@ export function AccordionItem({
         </p>
         <span>
           {
-            new Intl.NumberFormat(restaurantData.locale, {
-              style: 'currency',
-              currency: restaurantData.ccy,
-            }).format(price)
+            formatCurrency(restaurantData.locale, restaurantData.ccy)
+              .format(price)
           }
         </span>
       </div>

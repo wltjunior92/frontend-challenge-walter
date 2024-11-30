@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Fragment } from 'react/jsx-runtime'
 
 import minusIcon from '../../assets/minusIcon.svg'
+import noImage from '../../assets/noImage.png'
 import plusIcon from '../../assets/plusIcon.svg'
 import xIcon from '../../assets/xIcon.svg'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
@@ -28,6 +29,7 @@ export function DetailsModal({ onClose, selectedItem }: DetailsModalProps) {
   const [orderItem, setOrderItem] = useState<OrderItem>({
     menuItemId: selectedItem?.id ?? NaN,
     name: selectedItem?.name ?? '',
+    subtotal: 0,
     total: selectedItem?.price ?? 0,
     quantity: 1,
     modifiers: [],
@@ -82,8 +84,8 @@ export function DetailsModal({ onClose, selectedItem }: DetailsModalProps) {
     setOrderItem(copyOrderItem)
   }
 
-  function getOrderItemTotal() {
-    let price: number = 0
+  function getOrderItemTotalAndSubtotal() {
+    let price = 0
     if (selectedItem?.price) {
       price = selectedItem.price
     }
@@ -92,16 +94,65 @@ export function DetailsModal({ onClose, selectedItem }: DetailsModalProps) {
         return sum + modifier.price
       }, price)
     }
-    return formatCurrency(
-      restaurantData.locale,
-      restaurantData.ccy,
-    ).format(price * orderItem.quantity)
+    return {
+      total: price * orderItem.quantity,
+      subtotal: price,
+    }
   }
 
+  function validateRequiredModifiers() {
+    if (!selectedItem) return true
+    const requiredModifierIds =
+      selectedItem.modifiers?.filter(modifier => modifier.minChoices > 0)
+        .map(modifier => modifier.id)
+
+    if (!requiredModifierIds) return true
+
+    const orderModifierIds = orderItem.modifiers
+      .map(modifier => modifier.modifierId)
+
+    return requiredModifierIds.every(id => orderModifierIds.includes(id))
+  }
+
+  /*
+  SelectedItem = {
+    modifiers: [
+      {
+        id: 1
+        minChoices: 1
+      },
+      {
+        id: 2
+        minChoices: 0
+      },
+      {
+        id: 3
+        minChoices: 3
+      },
+    ]
+  }
+
+  OrderItem = {
+    modifiers: [
+      {
+        modifierId: 1
+      },
+    ],
+  }
+  */
+
   function handleAddToOrder() {
+    const { total, subtotal } = getOrderItemTotalAndSubtotal()
+
+    const isInvalid = validateRequiredModifiers()
+
+    if (isInvalid) return
+
     const newOrderItem: OrderItem = {
       ...orderItem,
       id: generateRandomId(),
+      total,
+      subtotal,
     }
     dispatch(addItemToOrderChart(newOrderItem))
     onClose()
@@ -116,11 +167,10 @@ export function DetailsModal({ onClose, selectedItem }: DetailsModalProps) {
           <img src={xIcon} alt="Close modal" />
         </button>
         <img
-          src={
-            selectedItem?.images.length > 0
-              ? selectedItem?.images[0].image
-              : ''
-          }
+          src={(selectedItem && selectedItem.images) &&
+            selectedItem.images.length > 0
+            ? selectedItem.images[0].image
+            : noImage}
         />
         <div className={styles.content}>
           <h3>{selectedItem.name}</h3>
@@ -161,7 +211,6 @@ export function DetailsModal({ onClose, selectedItem }: DetailsModalProps) {
                         <RadioInput
                           name="modifier_group"
                           type="radio"
-                          value={item.id}
                           onChange={() =>
                             handleSelectModifier(modifier, item.id)}
                         />
@@ -189,11 +238,15 @@ export function DetailsModal({ onClose, selectedItem }: DetailsModalProps) {
               <button
                 onClick={handleAddToOrder}
                 type="button"
+                disabled={!validateRequiredModifiers()}
               >
                 Adicionar ao pedido
                 <strong>.</strong>
                 {
-                  getOrderItemTotal()
+                  formatCurrency(
+                    restaurantData.locale,
+                    restaurantData.ccy,
+                  ).format(getOrderItemTotalAndSubtotal().total)
                 }
               </button>
             </footer>

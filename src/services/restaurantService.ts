@@ -33,9 +33,6 @@ export async function getRestaurantMenuData() {
       sections: data.sections,
     }
 
-    console.log('data', data.sections)
-    console.log('menu', menu.sections)
-
     dispatch(setRestaurantMenu(menu))
   } catch (error) {
     const err = error as AxiosError
