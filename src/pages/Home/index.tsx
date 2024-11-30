@@ -1,3 +1,4 @@
+import { debounce } from 'lodash'
 import { useEffect, useState } from 'react'
 
 import searchIcon from '../../assets/searchIcon.svg'
@@ -9,7 +10,7 @@ import {
   SectionAccordion,
 } from '../../components/SectionNavigator/SectionAccordion'
 import { useAppSelector } from '../../hooks/useAppSelector'
-import { MenuItem } from '../../store/reducers/menuReducer'
+import { MenuItem, Section } from '../../store/reducers/menuReducer'
 import styles from './styles.module.css'
 
 export function Home() {
@@ -20,8 +21,10 @@ export function Home() {
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false)
   const [isChartModalOpen, setIsChartModalOpen] = useState(true)
   const [selectedSection, setSelectedSection] = useState(NaN)
+  const [sortedSection, setSortedSection] = useState<Section[]>([])
 
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null)
+  const [searchTerm, setSearchTerm] = useState('')
 
   const toggleOpenCloseDetailsModal = () => {
     setIsDetailsModalOpen(open => !open)
@@ -39,6 +42,14 @@ export function Home() {
     setIsDetailsModalOpen(true)
   }
 
+  function handleTypeSearch(value: string) {
+    debouncedSearch(value)
+  }
+
+  const debouncedSearch = debounce((search) => {
+    setSearchTerm(search)
+  }, 650)
+
   useEffect(() => {
     if (isDetailsModalOpen) {
       document.body.style.overflowY = 'hidden'
@@ -52,6 +63,25 @@ export function Home() {
     setSelectedSection(restaurantMenu.sections[0].id)
   }, [restaurantMenu])
 
+  useEffect(() => {
+    if (searchTerm === '') {
+      setSortedSection(restaurantMenu.sections)
+    } else {
+      const sortedSectionsBySearchTerm = restaurantMenu.sections
+        .map(section => {
+          return {
+            ...section,
+            items: section.items
+              .filter(item => {
+                return item.name.toLowerCase()
+                  .startsWith(searchTerm.toLowerCase())
+              }),
+          }
+        })
+      setSortedSection(sortedSectionsBySearchTerm)
+    }
+  }, [searchTerm, restaurantMenu.sections])
+
   return (
     <div>
       <div className={styles.banner}>
@@ -62,7 +92,11 @@ export function Home() {
       <div className={styles.wrapper}>
         <div className={styles.search_input}>
           <img src={searchIcon} />
-          <input placeholder="Search menu items" type="text" />
+          <input
+            placeholder="Search menu items"
+            type="text"
+            onChange={(e) => handleTypeSearch(e.target.value)}
+          />
         </div>
         <div className={styles.cards}>
           <main>
@@ -72,12 +106,14 @@ export function Home() {
             />
             <section>
               {
-                restaurantMenu.sections.map(section => (
+                sortedSection.map(section => (
                   <SectionAccordion
                     key={section.id}
                     onSelectItem={handleSelectItem}
                     section={section}
-                    isSelected={selectedSection === section.id}
+                    isSelected={
+                      (selectedSection === section.id) || searchTerm !== ''
+                    }
                   />
                 ))
               }
