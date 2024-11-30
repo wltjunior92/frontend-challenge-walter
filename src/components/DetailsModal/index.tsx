@@ -114,39 +114,12 @@ export function DetailsModal({ onClose, selectedItem }: DetailsModalProps) {
     return requiredModifierIds.every(id => orderModifierIds.includes(id))
   }
 
-  /*
-  SelectedItem = {
-    modifiers: [
-      {
-        id: 1
-        minChoices: 1
-      },
-      {
-        id: 2
-        minChoices: 0
-      },
-      {
-        id: 3
-        minChoices: 3
-      },
-    ]
-  }
-
-  OrderItem = {
-    modifiers: [
-      {
-        modifierId: 1
-      },
-    ],
-  }
-  */
-
   function handleAddToOrder() {
     const { total, subtotal } = getOrderItemTotalAndSubtotal()
 
-    const isInvalid = validateRequiredModifiers()
+    const isValid = validateRequiredModifiers()
 
-    if (isInvalid) return
+    if (!isValid) return
 
     const newOrderItem: OrderItem = {
       ...orderItem,
