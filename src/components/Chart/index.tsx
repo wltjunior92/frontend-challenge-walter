@@ -1,8 +1,22 @@
 import minusIcon from '../../assets/minusIcon.svg'
 import plusIcon from '../../assets/plusIcon.svg'
+import { useAppSelector } from '../../hooks/useAppSelector'
 import styles from './styles.module.css'
 
 export function Chart() {
+  const chart = useAppSelector(state => state.application.chart)
+
+  if (chart.items.length === 0) {
+    return (
+      <div className={styles.container}>
+        <h3>Carrinho</h3>
+        <div className={styles.content}>
+          <span>Seu carrinho está vazio</span>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className={styles.container}>
       <h3>Carrinho</h3>

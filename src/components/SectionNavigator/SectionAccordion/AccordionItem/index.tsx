@@ -1,30 +1,39 @@
+import { useAppSelector } from '../../../../hooks/useAppSelector'
 import styles from './styles.module.css'
 
 type AccordionItemProps = {
   onSelect: () => void
+  name: string
+  description: string | undefined
+  price: number
+  image: string
 }
 
-export function AccordionItem({ onSelect }: AccordionItemProps) {
+export function AccordionItem({
+  onSelect,
+  name,
+  description,
+  price,
+  image,
+}: AccordionItemProps) {
+  const restaurantData = useAppSelector(state => state.restaurantData)
   return (
     <button type="button" className={styles.container} onClick={onSelect}>
       <div className={styles.content}>
-        <strong>Hardcore</strong>
+        <strong>{name}</strong>
         <p>
-          180g angus beef burger, with shredded ribs,
-          gruyere cheese, caramelized onions,
-          lettuce, confit tomato, special house bread,
-          served with fried cassava and passion fruit chipotle.
+          {description}
         </p>
         <span>
           {
-            new Intl.NumberFormat('pt-BR', {
+            new Intl.NumberFormat(restaurantData.locale, {
               style: 'currency',
-              currency: 'BRL',
-            }).format(parseFloat('33.00'))
+              currency: restaurantData.ccy,
+            }).format(price)
           }
         </span>
       </div>
-      <img src="https://preodemo.gumlet.io/usr/venue/7602/menuItem/646fbdc8cecca.png" />
+      <img src={image} />
     </button>
   )
 }

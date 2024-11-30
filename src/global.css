@@ -2,8 +2,10 @@
   --white: #fff;
   
   --branding-500: #4f372f;
-  --branding-700: #36231c;
+  --branding-700: color-mix(in srgb, var(--branding-500) 68%, black 35%);
+  --branding-500-hover: #4f372f;
   
+  --nav-background-color: #4f372f;
   --background: #eee;
   --card: #f8f9fa;
 

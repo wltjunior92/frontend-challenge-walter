@@ -1,12 +1,30 @@
 import styles from './styles.module.css'
 
-export function SectionItem() {
+type SectionItemProps = {
+  name: string
+  image: string
+  selected: boolean
+  onSelect: () => void
+}
+
+export function SectionItem({
+  name,
+  image,
+  selected,
+  onSelect,
+}: SectionItemProps) {
   return (
-    <button className={styles.container} type="button">
-      <div className={`${styles.image_container} ${styles.selected}`}>
-        <img src="https://preodemo.gumlet.io/usr/venue/7602/section/646fbe4c64a6f.png" />
+    <button
+      className={styles.container}
+      type="button"
+      onClick={() => onSelect()}
+    >
+      <div
+        className={`${styles.image_container} ${selected && styles.selected}`}
+      >
+        <img src={image} />
       </div>
-      <span className={`${styles.selected}`}>Burgers</span>
+      <span className={`${selected && styles.selected}`}>{name}</span>
     </button>
   )
 }

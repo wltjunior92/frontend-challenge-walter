@@ -130,6 +130,11 @@
       cursor: pointer;
     }
 
+    & button:disabled {
+      background-color: #DADADA;
+      cursor: auto;
+    }
+
     & span {
       font-size: 1.5rem;
       font-weight: 700;
@@ -152,10 +157,18 @@
     display: flex;
     justify-content: center;
 
+    cursor: pointer;
+
+    transition: filter 0.2s;
+
     & strong {
       display: block;
       margin: 0 0.5rem;
       transform: translateY(-4px);
+    }
+
+    &:hover {
+      filter: brightness(0.8);
     }
   }
 }

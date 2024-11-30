@@ -1,11 +1,15 @@
 import './global.css'
 
+import { Provider } from 'react-redux'
 import { RouterProvider } from 'react-router-dom'
 
 import { router } from './router'
+import store from './store'
 
 export function App() {
   return (
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   )
 }
