@@ -11,12 +11,14 @@ import {
 } from '../../components/SectionNavigator/SectionAccordion'
 import { useAppSelector } from '../../hooks/useAppSelector'
 import { MenuItem, Section } from '../../store/reducers/menuReducer'
+import { HomeSkeleton } from './skeleton'
 import styles from './styles.module.css'
 
 export function Home() {
   const chart = useAppSelector(state => state.application.chart)
   const restaurantData = useAppSelector(state => state.restaurantData)
   const restaurantMenu = useAppSelector(state => state.menu)
+  const isLoadingApplication = useAppSelector(state => state.application.isLoading)
 
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false)
   const [isChartModalOpen, setIsChartModalOpen] = useState(true)
@@ -81,6 +83,8 @@ export function Home() {
       setSortedSection(sortedSectionsBySearchTerm)
     }
   }, [searchTerm, restaurantMenu.sections])
+
+  if (isLoadingApplication) return <HomeSkeleton />
 
   return (
     <div>
