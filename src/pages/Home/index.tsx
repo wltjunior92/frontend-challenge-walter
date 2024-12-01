@@ -18,10 +18,11 @@ export function Home() {
   const chart = useAppSelector(state => state.application.chart)
   const restaurantData = useAppSelector(state => state.restaurantData)
   const restaurantMenu = useAppSelector(state => state.menu)
-  const isLoadingApplication = useAppSelector(state => state.application.isLoading)
+  const isLoadingApplication =
+    useAppSelector(state => state.application.isLoading)
 
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false)
-  const [isChartModalOpen, setIsChartModalOpen] = useState(true)
+  const [isChartModalOpen, setIsChartModalOpen] = useState(false)
   const [selectedSection, setSelectedSection] = useState(NaN)
   const [sortedSection, setSortedSection] = useState<Section[]>([])
 
@@ -37,6 +38,10 @@ export function Home() {
 
   function handleSelectSections(id: number) {
     setSelectedSection(id)
+    const selected = restaurantMenu.sections.find(section => section.id === id)
+    if (!selected) return
+    const rest = restaurantMenu.sections.filter(section => section.id !== id)
+    setSortedSection([selected, ...rest])
   }
 
   function handleSelectItem(item: MenuItem) {
