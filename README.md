@@ -26,7 +26,7 @@ It usually runs at port 3000 so the file will be:
 VITE_APP_API=http://localhost:3000
 ```
 
-Toaccess the application running on Vercel [click here]()
+Toaccess the application running on Vercel [click here](https://frontend-challenge-walter.vercel.app/)
 
 ## Technologies
 
