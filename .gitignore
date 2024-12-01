@@ -23,8 +23,5 @@ dist-ssr
 *.sln
 *.sw?
 
-# json server
-db.json
-
 # enviroment variables
 .env
